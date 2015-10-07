@@ -1,15 +1,11 @@
-#uap-python
-A python implementation of the UA Parser (https://github.com/ua-parser, formerly https://github.com/tobie/ua-parser)
-
-##Build Status
-
-[![Build Status](https://travis-ci.org/ua-parser/uap-python.svg)](https://travis-ci.org/ua-parser/uap-python)
+#ua_parser_plus
+A enhanced version of the python implementation of the UA Parser (https://github.com/ua-parser, formerly https://github.com/tobie/ua-parser). The plus version allows processing case insensitive user agent strings.
 
 ##Installing
 
 In the top-level directory run:
 ```
-make Makefile
+python setup.py develop
 ```
 
 ##Getting Started

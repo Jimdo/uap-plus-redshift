@@ -16,11 +16,11 @@ make Makefile
 
 ### retrieve data on a user-agent string
 ```
->>> import user_agent_parser
+>>> import ua_parser_plus.user_agent_parser
 >>> import pprint
 >>> pp = pprint.PrettyPrinter(indent=4)
 >>> ua_string = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36'
->>> parsed_string = user_agent_parser.Parse(ua_string)
+>>> parsed_string = ua_parser_plus.user_agent_parser.Parse(ua_string)
 >>> pp.pprint(parsed_string)
 {   'device': {   'brand': None, 'family': 'Other', 'model': None},
     'os': {   'family': 'Mac OS X',
@@ -39,11 +39,11 @@ make Makefile
 ### extract browser data from user-agent string
 
 ```
->>> import user_agent_parser
+>>> import ua_parser_plus.user_agent_parser
 >>> import pprint
 >>> pp = pprint.PrettyPrinter(indent=4)
 >>> ua_string = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36'
->>> parsed_string = user_agent_parser.ParseUserAgent(ua_string)
+>>> parsed_string = ua_parser_plus.user_agent_parser.ParseUserAgent(ua_string)
 >>> pp.pprint(parsed_string)
  {   'family': 'Chrome', 
 	 'major': '41', 
@@ -54,11 +54,11 @@ make Makefile
 ### extract OS information from user-agent string
 
 ```
->>> import user_agent_parser
+>>> import ua_parser_plus.user_agent_parser
 >>> import pprint
 >>> pp = pprint.PrettyPrinter(indent=4)
 >>> ua_string = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36'
->>> parsed_string = user_agent_parser.ParseOS(ua_string)
+>>> parsed_string = ua_parser_plus.user_agent_parser.ParseOS(ua_string)
 >>> pp.pprint(parsed_string)
 {   'family': 'Mac OS X',
     'major': '10',
@@ -71,11 +71,11 @@ make Makefile
 
 
 ```
->>> import user_agent_parser
+>>> import ua_parser_plus.user_agent_parser
 >>> import pprint
 >>> pp = pprint.PrettyPrinter(indent=4)
 >>> ua_string = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36'
->>> parsed_string = user_agent_parser.ParseDevice(ua_string)
+>>> parsed_string = ua_parser_plus.user_agent_parser.ParseDevice(ua_string)
 >>> pp.pprint(parsed_string)
 {   'brand': None, 
 	'family': 'Other', 

@@ -1,5 +1,5 @@
 #ua_parser_plus
-A enhanced version of the python implementation of the UA Parser (https://github.com/ua-parser, formerly https://github.com/tobie/ua-parser). The plus version allows processing case insensitive user agent strings.
+An enhanced version of the python implementation of the UA Parser (https://github.com/ua-parser, formerly https://github.com/tobie/ua-parser). The plus version allows processing case insensitive user agent strings.
 
 ##Installing
 

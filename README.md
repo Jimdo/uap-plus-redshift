@@ -1,4 +1,81 @@
-#ua_parser_plus
+# UAP-Plus-Redshift
+Redshift python library for user agent detection.
+- Built from [ua_parser_plus](https://github.com/edmodo/ua_parser_plus)
+- Inspired from [uap-redshift](https://github.com/ajlai/uap-redshift)
+
+## Usage
+```sql
+CREATE OR REPLACE LIBRARY ua_parser_plus
+LANGUAGE plpythonu 
+FROM 'https://github.com/nihhaar/uap-plus-redshift/releases/download/v0.1.0/uap-plus-redshift.zip'
+CREDENTIALS '<CREDENTIALS>';
+
+CREATE OR REPLACE FUNCTION udf.f_ua_device_brand(ua VARCHAR(MAX)) RETURNS VARCHAR(MAX) IMMUTABLE as $$
+  if ua is None or ua == '': return None
+  from ua_parser_plus.user_agent_parser import Parse;
+  if 'device' in Parse(ua):
+    if 'brand' in Parse(ua)['device']:
+        return Parse(ua)['device']['brand']
+  return None
+$$ LANGUAGE plpythonu;
+
+CREATE OR REPLACE FUNCTION udf.f_ua_device_model(ua VARCHAR(MAX)) RETURNS VARCHAR(MAX) IMMUTABLE as $$
+  if ua is None or ua == '': return None
+  from ua_parser_plus.user_agent_parser import Parse;
+  if 'device' in Parse(ua):
+    if 'model' in Parse(ua)['device']:
+        return Parse(ua)['device']['model']
+  return None
+$$ LANGUAGE plpythonu;
+
+CREATE OR REPLACE FUNCTION udf.f_ua_device_browser(ua VARCHAR(MAX)) RETURNS VARCHAR(MAX) IMMUTABLE as $$
+  if ua is None or ua == '': return None
+  from ua_parser_plus.user_agent_parser import Parse;
+  if 'device' in Parse(ua):
+    if 'browser' in Parse(ua)['device']:
+        return Parse(ua)['device']['browser']
+  return None
+$$ LANGUAGE plpythonu;
+
+CREATE OR REPLACE FUNCTION udf.f_ua_device_family(ua VARCHAR(MAX)) RETURNS VARCHAR(MAX) IMMUTABLE as $$
+  if ua is None or ua == '': return None
+  from ua_parser_plus.user_agent_parser import Parse;
+  if 'device' in Parse(ua):
+    if 'family' in Parse(ua)['device']:
+        return Parse(ua)['device']['family']
+  return None
+$$ LANGUAGE plpythonu;
+```
+
+UDFs are slow, so you should minimize the number of calls to it. For example, the above UDFs can be merged into a single UDF using json_extract:
+```sql
+CREATE OR REPLACE FUNCTION udf.f_ua_device_json(ua VARCHAR(MAX)) RETURNS VARCHAR(MAX) IMMUTABLE as $$
+  if ua is None or ua == '': return None
+  from ua_parser_plus.user_agent_parser import Parse;
+  import json
+  if 'device' in Parse(ua):
+    return json.dumps(Parse(ua)['device'])
+  return None
+$$ LANGUAGE plpythonu;
+
+WITH
+udf_subquery as (
+    SELECT
+     id
+    ,udf.f_ua_device_json(params) as udf_json_result
+    FROM table
+)
+SELECT
+    id
+    ,json_extract_path_text(udf_json_result, 'brand') as brand
+    ,json_extract_path_text(udf_json_result, 'model') as model
+    ,json_extract_path_text(udf_json_result, 'browser') as browser
+    ,json_extract_path_text(udf_json_result, 'family') as family
+FROM udf_subquery;
+```
+
+
+## ua_parser_plus
 An enhanced version of the python implementation of the UA Parser (https://github.com/ua-parser, formerly https://github.com/tobie/ua-parser). The plus version allows processing case insensitive user agent strings.
 
 ##Installing

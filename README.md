@@ -1,6 +1,7 @@
 # UAPPlus-Redshift
 Redshift python library for user agent detection.
-- Built from [ua_parser_plus](!https://github.com/edmodo/ua_parser_plus)
+- Built from [ua_parser_plus](https://github.com/edmodo/ua_parser_plus)
+- Inspired from [uap-redshift](https://github.com/ajlai/uap-redshift)
 
 ## Usage
 ```sql
